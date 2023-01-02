@@ -55,7 +55,7 @@ namespace asp_b_heroesCrud.Server.Controllers
         {
             var dbHero = await context.SuperHeroes
                 .Include(h => h.Comic)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(h => h.Id == id);
 
             if (dbHero == null) return NotFound("Sorry, but not found ;(");
 
@@ -73,7 +73,7 @@ namespace asp_b_heroesCrud.Server.Controllers
         {
             var dbHero = await context.SuperHeroes
                 .Include(h => h.Comic)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(h => h.Id == id);
 
             if (dbHero == null) return NotFound("Sorry, but not found ;(");
 

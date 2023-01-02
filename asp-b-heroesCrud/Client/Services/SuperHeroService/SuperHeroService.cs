@@ -40,21 +40,21 @@ namespace asp_b_heroesCrud.Client.Services.SuperHeroService
         public async Task CreateHero(SuperHero hero)
         {
             var res = await http.PostAsJsonAsync("api/superhero", hero);
-            Heroes = await res.Content.ReadFromJsonAsync<List<SuperHero>>();
+            //Heroes = await res.Content.ReadFromJsonAsync<List<SuperHero>>();
             navigationManager.NavigateTo("superheroes");
         }
 
         public async Task UpdateHero(SuperHero hero)
         {
             var res = await http.PutAsJsonAsync($"api/superhero/{hero.Id}", hero);
-            Heroes = await res.Content.ReadFromJsonAsync<List<SuperHero>>();
+            //Heroes = await res.Content.ReadFromJsonAsync<List<SuperHero>>();
             navigationManager.NavigateTo("superheroes");
         }
 
         public async Task DeleteHero(int id)
         {
             var res = await http.DeleteAsync($"api/superhero/{id}");
-            Heroes = await res.Content.ReadFromJsonAsync<List<SuperHero>>();
+            //Heroes = await res.Content.ReadFromJsonAsync<List<SuperHero>>();
             navigationManager.NavigateTo("superheroes");
         }
     }
