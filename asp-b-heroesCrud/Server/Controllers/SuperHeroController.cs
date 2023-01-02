@@ -1,4 +1,5 @@
-﻿using asp_b_heroesCrud.Server.Data;
+﻿using asp_b_heroesCrud.Client.Pages;
+using asp_b_heroesCrud.Server.Data;
 using asp_b_heroesCrud.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace asp_b_heroesCrud.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> GetSuperHeroes()
         {
-            return Ok(await context.SuperHeroes.ToListAsync());
+            return Ok(await context.SuperHeroes.Include(h => h.Comic).ToListAsync());
         }
 
         [HttpGet("comics")]
@@ -37,6 +38,49 @@ namespace asp_b_heroesCrud.Server.Controllers
             if (hero == null)
                 return NotFound("Sorry :(");
             return Ok(hero);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<SuperHero>>> CreateSuperHero(SuperHero hero)
+        {
+            hero.Comic = null;
+            context.SuperHeroes.Add(hero);
+            await context.SaveChangesAsync();
+
+            return Ok(await GetSuperHeroes());
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> UpdateSuperHero(SuperHero hero, int id)
+        {
+            var dbHero = await context.SuperHeroes
+                .Include(h => h.Comic)
+                .FirstOrDefaultAsync();
+
+            if (dbHero == null) return NotFound("Sorry, but not found ;(");
+
+            dbHero.FirstName = hero.FirstName;
+            dbHero.LastName = hero.LastName;
+            dbHero.HeroName = hero.HeroName;
+            dbHero.ComicId = hero.ComicId;
+
+            await context.SaveChangesAsync();
+            return Ok(await GetSuperHeroes());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> DeleteSuperHero(int id)
+        {
+            var dbHero = await context.SuperHeroes
+                .Include(h => h.Comic)
+                .FirstOrDefaultAsync();
+
+            if (dbHero == null) return NotFound("Sorry, but not found ;(");
+
+            context.SuperHeroes.Remove(dbHero);
+            await context.SaveChangesAsync();
+            
+            return Ok(await GetSuperHeroes());
         }
     }
 }
