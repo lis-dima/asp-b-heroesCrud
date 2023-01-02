@@ -12,11 +12,25 @@ namespace asp_b_heroesCrud.Server.Controllers
             new Comic {Id = 2, Name = "DC"}
         };
 
-        public static List<SuperHero> superHeroes = new List<SuperHero>
+        public static List<SuperHero> heroes = new List<SuperHero>
         {
             new SuperHero {Id = 1, FirstName = "Peter", LastName = "Parker", HeroName="SpiderM@n" },
             new SuperHero {Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName="B@tm@n" },
         };
 
+        [HttpGet]
+        public async Task<ActionResult<List<SuperHero>>> GetSuperHeroes()
+        {
+            return Ok(heroes);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SuperHero>> GetSingleHero(int? id)
+        {
+            var hero = heroes.FirstOrDefault(h => h.Id == id);
+            if (hero == null)
+                return NotFound("Sorry :(");
+            return Ok(hero);
+        }
     }
 }
