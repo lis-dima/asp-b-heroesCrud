@@ -1,4 +1,6 @@
+using asp_b_heroesCrud.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<DataContext>(o =>
+    o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConn"))
+);
 
 var app = builder.Build();
 

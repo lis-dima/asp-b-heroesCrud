@@ -9,10 +9,10 @@ namespace asp_b_heroesCrud.Shared
     public class SuperHero
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string HeroName { get; set; }
-        public Comic Comic { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string HeroName { get; set; } = string.Empty;
         public int ComicId { get; set; }
+        public Comic? Comic { get; set; }
     }
 }
