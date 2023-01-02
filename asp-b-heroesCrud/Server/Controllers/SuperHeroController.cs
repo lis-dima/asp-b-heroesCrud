@@ -15,7 +15,7 @@ namespace asp_b_heroesCrud.Server.Controllers
         public static List<SuperHero> heroes = new List<SuperHero>
         {
             new SuperHero {Id = 1, FirstName = "Peter", LastName = "Parker", HeroName="SpiderM@n" },
-            new SuperHero {Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName="B@tm@n" },
+            new SuperHero {Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName="B@tm@n", Comic = comics[1] },
         };
 
         [HttpGet]

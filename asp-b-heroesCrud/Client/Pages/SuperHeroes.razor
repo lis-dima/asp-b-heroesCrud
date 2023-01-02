@@ -1,0 +1,42 @@
+﻿@page "/superheroes"
+@inject ISuperHeroService SuperHeroService
+
+<PageTitle>Super Heroes!</PageTitle>
+<h3>SuperHeroes</h3>
+<hr />
+@foreach (var hero in SuperHeroService.Heroes)
+{
+    <span>@hero.HeroName</span>
+}
+<hr />
+
+<table>
+    <thead>
+        <tr>
+            <th>F name</th>
+            <th>L name</th>
+            <th>Hero</th>
+            <th>Comic</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hero in SuperHeroService.Heroes)
+        {
+            <tr>
+                <td>@hero.FirstName</td>
+                <td>@hero.LastName</td>
+                <td>@hero.HeroName</td>
+                <td>@hero.Comic?.Name</td>
+                <td><button>BTN</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await SuperHeroService.GetSuperHeroes();
+    }
+}
