@@ -1,12 +1,13 @@
 ﻿@page "/superheroes"
-@inject ISuperHeroService SuperHeroService
+@inject ISuperHeroService myService
+@inject NavigationManager navManager
 
 <PageTitle>Super Heroes!</PageTitle>
 <h3>SuperHeroes</h3>
 <hr />
-@foreach (var hero in SuperHeroService.Heroes)
+@foreach (var hero in myService.Heroes)
 {
-    <span>@hero.HeroName</span>
+    <span>@hero.HeroName </span>
 }
 <hr />
 
@@ -21,14 +22,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var hero in SuperHeroService.Heroes)
+        @foreach (var hero in myService.Heroes)
         {
             <tr>
                 <td>@hero.FirstName</td>
                 <td>@hero.LastName</td>
                 <td>@hero.HeroName</td>
                 <td>@hero.Comic?.Name</td>
-                <td><button>BTN</button></td>
+                <th><button class="btn btn-primary" @onclick="(()=>ShowHero(hero.Id))">Show</button></th>
             </tr>
         }
     </tbody>
@@ -37,6 +38,11 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        await SuperHeroService.GetSuperHeroes();
+        await myService.GetSuperHeroes();
+    }
+
+    void ShowHero(int id)
+    {
+        navManager.NavigateTo($"hero/{id}");
     }
 }

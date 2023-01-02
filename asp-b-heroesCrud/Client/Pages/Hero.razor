@@ -1,0 +1,32 @@
+﻿@page "/hero"
+@page "/hero/{id:int}"
+@using asp_b_heroesCrud.Shared;
+@inject ISuperHeroService SuperHeroService
+
+@if(Id == null)
+{
+    <h3>Create new hero</h3>
+}
+else
+{
+    <h3>Hero: @hero.HeroName</h3>
+}
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    SuperHero hero = new SuperHero();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(Id == null)
+        {
+
+        }
+        else
+        {
+            hero = await SuperHeroService.GetSingleHero((int)Id);
+        }
+    }
+}
