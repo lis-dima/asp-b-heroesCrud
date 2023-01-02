@@ -15,13 +15,19 @@ namespace asp_b_heroesCrud.Server.Controllers
         public static List<SuperHero> heroes = new List<SuperHero>
         {
             new SuperHero {Id = 1, FirstName = "Peter", LastName = "Parker", HeroName="SpiderM@n" },
-            new SuperHero {Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName="B@tm@n", Comic = comics[1] },
+            new SuperHero {Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName="B@tm@n", Comic = comics[1], ComicId = 2 },
         };
 
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> GetSuperHeroes()
         {
             return Ok(heroes);
+        }
+
+        [HttpGet("comics")]
+        public async Task<ActionResult<List<SuperHero>>> GetComics()
+        {
+            return Ok(comics);
         }
 
         [HttpGet("{id}")]

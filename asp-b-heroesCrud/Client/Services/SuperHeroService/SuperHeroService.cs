@@ -14,9 +14,10 @@ namespace asp_b_heroesCrud.Client.Services.SuperHeroService
         {
             this.http = http;
         }
-        public Task GetComics()
+        public async Task GetComics()
         {
-            throw new NotImplementedException();
+            var res = await http.GetFromJsonAsync<List<Comic>>("api/superhero/comics");
+            if (res != null) Comics = res;
         }
 
         public async Task<SuperHero> GetSingleHero(int id)
